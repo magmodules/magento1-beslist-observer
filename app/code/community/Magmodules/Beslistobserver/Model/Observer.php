@@ -67,7 +67,7 @@ class Magmodules_Beslistobserver_Model_Observer
 
         foreach($items as $k => $item) {
             if (isset($item['product_id']) && $item['product_id'] == 231) {
-                $items[$k]['stock'] = 100;
+                $items[$k]['qty'] = 100;
                 $items[$k]['delivery_time_nl'] = 'Edited by Observer';
                 $items[$k]['delivery_time_be'] = 'Edited by Observer';
             }
