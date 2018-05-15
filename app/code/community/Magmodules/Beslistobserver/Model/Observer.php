@@ -28,23 +28,18 @@ class Magmodules_Beslistobserver_Model_Observer
      */
     public function beforeFeedItem(Varien_Event_Observer $observer)
     {
-        $event = $observer->getEvent();
-        $feedItem = $event->getFeedData();
+        $feedItem = $observer->getEvent()->getFeedData();
         $item = $feedItem->getData();
+
+        /** @var Mage_Catalog_Model_Product $product */
+        $product = $feedItem->getProduct();
 
         // Example for Product Id 231
         if (isset($item['ID']) && $item['ID'] == 231) {
             $item['Levertijd'] = 'Edited by Observer';
             $item['Levertijd_BE'] = 'Edited by Observer';
 
-            // Or get attribute value
-            try {
-                $_resource = Mage::getSingleton('catalog/product')->getResource();
-                $sku = $_resource->getAttributeRawValue($item['ID'], 'sku', Mage::app()->getStore());
-            } catch (\Exception $e) {
-                $sku = null;
-            }
-
+            $sku = $product->getSku();
             if ($sku) {
                 $item['Sku'] = $sku . '-new';
             }
